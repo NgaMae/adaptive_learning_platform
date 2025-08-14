@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Outlet } from 'react-router';
 import { SidebarProvider, useSidebar } from '../../context/SidebarContext';
 import AppHeader from './AppHeader';
 import AppSidebar from './AppSidebar';
@@ -8,7 +9,7 @@ type Props = {
     children: ReactNode;
 };
 
-const LayoutContent = ({ children }: Props) => {
+const LayoutContent = () => {
     const { isExpanded, isHovered, isMobileOpen } = useSidebar();
     return (
         <div className="min-h-screen xl:flex">
@@ -22,16 +23,18 @@ const LayoutContent = ({ children }: Props) => {
                 } ${isMobileOpen ? 'ml-0' : ''}`}
             >
                 <AppHeader />
-                <div className="mx-auto max-w-(--breakpoint-2xl) p-4 md:p-6">{children}</div>
+                <div className="mx-auto max-w-(--breakpoint-2xl) p-4 md:p-6 dark:bg-gray-900">
+                    <Outlet />
+                </div>
             </div>
         </div>
     );
 };
 
-const AppLayout = ({ children }: Props) => {
+const AppLayout = () => {
     return (
         <SidebarProvider>
-            <LayoutContent>{children}</LayoutContent>
+            <LayoutContent></LayoutContent>
         </SidebarProvider>
     );
 };

@@ -1,9 +1,21 @@
-import { Link } from '@inertiajs/react';
-import { useState } from 'react';
+import { type SharedData } from '@/types';
+import { Link, router, usePage } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 import { Dropdown } from '../ui/dropdown/Dropdown';
 import { DropdownItem } from '../ui/dropdown/DropdownItem';
 
 export default function UserDropdown() {
+    const { auth } = usePage<SharedData>().props;
+    useEffect(() => {
+        if (!auth.user) {
+            router.visit(route('login')); // Client-side navigation to login page
+        }
+    }, [auth.user]);
+
+    if (!auth?.user) {
+        return null; // Avoid rendering until redirect
+    }
+
     const [isOpen, setIsOpen] = useState(false);
 
     function toggleDropdown() {
@@ -20,7 +32,7 @@ export default function UserDropdown() {
                     <img src="/images/user/owner.jpg" alt="User" />
                 </span>
 
-                <span className="mr-1 block text-theme-sm font-medium">Musharof</span>
+                <span className="mr-1 block text-theme-sm font-medium">{auth.user.name}</span>
                 <svg
                     className={`stroke-gray-500 transition-transform duration-200 dark:stroke-gray-400 ${isOpen ? 'rotate-180' : ''}`}
                     width="18"
@@ -45,8 +57,8 @@ export default function UserDropdown() {
                 className="absolute right-0 mt-[17px] flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
             >
                 <div>
-                    <span className="block text-theme-sm font-medium text-gray-700 dark:text-gray-400">Musharof Chowdhury</span>
-                    <span className="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">randomuser@pimjo.com</span>
+                    <span className="block text-theme-sm font-medium text-gray-700 dark:text-gray-400">{auth.user.name}</span>
+                    <span className="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">{auth.user.email}</span>
                 </div>
 
                 <ul className="flex flex-col gap-1 border-b border-gray-200 pt-4 pb-3 dark:border-gray-800">

@@ -2,9 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\Course;
+
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/education.php';
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    $courses = Course::all();
+    return Inertia::render('welcome', ['courses' => $courses]);
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -13,5 +19,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+Route::get('/{any}', function () {
+    return Inertia::render('welcome', [
+        'courses' => Course::all(),
+    ]);
+})->where('any', '.*');

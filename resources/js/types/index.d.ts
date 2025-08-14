@@ -28,6 +28,7 @@ export interface SharedData {
     auth: Auth;
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
+    courses?: Course[];
     [key: string]: unknown;
 }
 
@@ -40,4 +41,14 @@ export interface User {
     created_at: string;
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
+}
+
+export interface Course {
+    id: number;
+    title: string;
+    description: string;
+    difficulty: number; // 1: beginner, 2: intermediate, 3: advanced
+    created_at: string;
+    updated_at: string;
+    [key: string]: unknown; // allows extra fields without breaking type checks
 }
