@@ -24,7 +24,8 @@ class CourseCreateRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:1000'],
-            'difficulty' => ['required', 'string', 'in:1,2,3'], // Assuming levels are 1, 2, and 3
+            'difficulty' => ['required', 'integer', 'in:1,2,3'],
+            'created_by' => ['required', 'exists:users,id'],
         ];
     }
 }

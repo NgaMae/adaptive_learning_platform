@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->foreignId('course_id')->constrained()->onDelete('cascade'); // Link to course
             $table->string('title');
-            $table->text('content')->nullable(); // Lesson body (HTML/Markdown)
+            $table->longText('content')->nullable(); // Lesson body (HTML/Markdown)
             $table->integer('order')->default(1); // Lesson order in course
 
             $table->timestamps();

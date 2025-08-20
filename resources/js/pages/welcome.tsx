@@ -1,5 +1,3 @@
-import { SharedData } from '@/types';
-import { usePage } from '@inertiajs/react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router';
 import { ScrollToTop } from '../components/components/common/ScrollToTop';
 import AppLayout from '../layouts/layout/AppLayout';
@@ -25,7 +23,6 @@ import Videos from './pages/UiElements/Videos';
 import UserProfiles from './pages/UserProfiles';
 
 export default function App() {
-    const courses = usePage<SharedData>().props.courses;
     return (
         <>
             <Router>

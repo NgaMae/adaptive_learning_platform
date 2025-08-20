@@ -31,9 +31,9 @@ class CourseController extends Controller
     public function store(CourseCreateRequest $request)
     {
         Model::unguard();
-        $course = Course::create($request);
+        $course = Course::create($request->validated());
 
-        return redirect()->route('/courses', $course)->with('status', 'Course created successfully!');
+        return redirect('/courses')->with('status', 'Course created successfully!');
     }
 
     /**

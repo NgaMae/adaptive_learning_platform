@@ -6,10 +6,10 @@ import Button from '@/components/components/ui/button/Button';
 import { Modal } from '@/components/components/ui/modal';
 import InputError from '@/components/input-error';
 import { useModal } from '@/hooks/hooks/useModal';
-import { PlusIcon } from '@/icons';
 import { SharedData } from '@/types';
 import { useForm, usePage } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { PlusIcon } from 'lucide-react';
+import { FormEventHandler, useState } from 'react';
 import PageBreadcrumb from '../../../components/components/common/PageBreadCrumb';
 
 interface CoursesProps {
@@ -23,18 +23,23 @@ interface CourseForm {
 }
 export default function Courses() {
     const { auth, courses } = usePage<SharedData>().props;
+    const [description, setDescription] = useState('');
 
     const { data, setData, errors, processing, post } = useForm<Required<CourseForm>>({
         title: '',
         description: '',
         difficulty: 1,
-        created_by: auth.user.id, // Default to beginner
+        created_by: auth.user.id,
     });
     const { isOpen, openModal, closeModal } = useModal();
 
     const handleSave: FormEventHandler = (e) => {
         e.preventDefault();
         post(route('course.create'));
+        setDescription(''); // Clear description after submission
+        if (!processing)
+            // Only close modal if not processing
+            closeModal();
     };
 
     const options = [
@@ -53,7 +58,7 @@ export default function Courses() {
                 {courses?.map((course) => (
                     <div
                         key={course.id}
-                        className="max-h-50 overflow-hidden rounded-2xl border border-gray-200 p-4 pr-5 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800"
+                        className="max-h-50 cursor-pointer overflow-hidden rounded-2xl border border-gray-200 p-4 pr-5 select-none hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800"
                     >
                         <h3 className="mb-4 text-theme-xl font-semibold text-gray-800 sm:text-2xl dark:text-white/90">{course.title}</h3>
                         <p className="line-clamp-5 text-sm text-pretty text-gray-500 sm:text-base dark:text-gray-400">{course.description}</p>
@@ -61,10 +66,10 @@ export default function Courses() {
                 ))}
 
                 <div
-                    className="px-auto flex max-h-50 items-center justify-center rounded-2xl border border-gray-200 p-4 pr-5 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800"
+                    className="px-auto flex min-h-50 cursor-pointer items-center justify-center rounded-2xl border border-gray-200 p-4 pr-5 select-none hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800"
                     onClick={openModal}
                 >
-                    <PlusIcon />
+                    <PlusIcon className="size-8" />
                 </div>
             </div>
             <Modal isOpen={isOpen} onClose={closeModal} className="m-4 max-w-[700px]">
@@ -88,9 +93,16 @@ export default function Courses() {
                                     <InputError className="mt-2" message={errors.difficulty} />
                                 </div>
 
-                                <div className="col-span-2">
+                                <div className="lg:col-span-2">
                                     <Label>Description</Label>
-                                    <TextArea placeholder="Enter description of the course" rows={5} />
+                                    <TextArea
+                                        value={description}
+                                        onChange={(value) => {
+                                            setDescription(value);
+                                            setData('description', value);
+                                        }}
+                                        rows={6}
+                                    />
                                     <InputError className="mt-2" message={errors.description} />
                                 </div>
                             </div>
