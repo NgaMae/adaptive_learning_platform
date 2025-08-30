@@ -61,5 +61,16 @@ export interface Lesson {
     order: number;
     created_at: string;
     updated_at: string;
+    quizzes?: Quiz[];
+    [key: string]: unknown; // allows extra fields without breaking type checks
+}
+export interface Quiz {
+    id: number;
+    lesson_id: number;
+    created_at: string;
+    updated_at: string;
+    questions?: string;
+    options?: JSON;
+    answers?: string;
     [key: string]: unknown; // allows extra fields without breaking type checks
 }

@@ -1,13 +1,13 @@
+import MonthlySalesChart from '@/components/components/ecommerce/MonthlySalesChart';
+import MonthlyTarget from '@/components/components/ecommerce/MonthlyTarget';
+import RecentOrders from '@/components/components/ecommerce/RecentOrders';
+import StatisticsChart from '@/components/components/ecommerce/StatisticsChart';
 import EcommerceMetrics from '../../../components/components/ecommerce/EcommerceMetrics';
-import MonthlySalesChart from '../../../components/components/ecommerce/MonthlySalesChart';
-import MonthlyTarget from '../../../components/components/ecommerce/MonthlyTarget';
-import RecentOrders from '../../../components/components/ecommerce/RecentOrders';
-import StatisticsChart from '../../../components/components/ecommerce/StatisticsChart';
 
 export default function Home() {
     return (
         <>
-            <div className="grid grid-cols-12 gap-4 md:gap-6">
+            <div className="grid h-screen grid-cols-12 gap-4 md:gap-6">
                 <div className="col-span-12 space-y-6 xl:col-span-7">
                     <EcommerceMetrics />
 

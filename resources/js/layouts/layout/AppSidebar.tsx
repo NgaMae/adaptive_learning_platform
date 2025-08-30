@@ -2,10 +2,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router';
 
 // Assume these icons are imported from an icon library
-import { FolderIcon, ListIcon, PieChartIcon } from 'lucide-react';
+import { FolderIcon, ListIcon, PieChartIcon, TableIcon } from 'lucide-react';
 import { useSidebar } from '../../context/SidebarContext';
-import { BoxCubeIcon, CalenderIcon, ChevronDownIcon, GridIcon, HorizontaLDots, PlugInIcon } from '../../icons';
-import SidebarWidget from './SidebarWidget';
+import { BoxCubeIcon, CalenderIcon, ChevronDownIcon, GridIcon, HorizontaLDots, PageIcon, PlugInIcon } from '../../icons';
 
 type NavItem = {
     name: string;
@@ -45,19 +44,19 @@ const navItems: NavItem[] = [
         icon: <ListIcon />,
         subItems: [{ name: 'Form Elements', path: '/form-elements', pro: false }],
     },
-    // {
-    //     name: 'Tables',
-    //     icon: <TableIcon />,
-    //     subItems: [{ name: 'Basic Tables', path: '/basic-tables', pro: false }],
-    // },
-    // {
-    //     name: 'Pages',
-    //     icon: <PageIcon />,
-    //     subItems: [
-    //         { name: 'Blank Page', path: '/blank', pro: false },
-    //         { name: '404 Error', path: '/error-404', pro: false },
-    //     ],
-    // },
+    {
+        name: 'Tables',
+        icon: <TableIcon />,
+        subItems: [{ name: 'Basic Tables', path: '/basic-tables', pro: false }],
+    },
+    {
+        name: 'Pages',
+        icon: <PageIcon />,
+        subItems: [
+            { name: 'Blank Page', path: '/blank', pro: false },
+            { name: '404 Error', path: '/error-404', pro: false },
+        ],
+    },
     {
         icon: <CalenderIcon />,
         name: 'Calendar',
@@ -315,7 +314,7 @@ const AppSidebar: React.FC = () => {
                         </div>
                     </div>
                 </nav>
-                {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null}
+                {/* {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null} */}
             </div>
         </aside>
     );

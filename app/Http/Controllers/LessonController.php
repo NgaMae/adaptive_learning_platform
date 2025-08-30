@@ -42,7 +42,7 @@ class LessonController extends Controller
             'content' => $validated['content'], // store HTML
         ]);
 
-        return redirect()->route('lesson.edit', ['lessonId' => $lesson->id]);
+        return redirect()->route('lesson.edit', ['lesson' => $lesson->id]);
     }
 
 
@@ -56,7 +56,7 @@ class LessonController extends Controller
      */
     public function edit(Lesson $lesson)
     {
-        return Inertia::render('pages/Education/CreateLesson', ['lesson' => $lesson]);
+        return Inertia::render('pages/Education/CreateLesson', ['lesson' => $lesson, 'previousUrl' => url()->previous()]);
     }
 
     /**

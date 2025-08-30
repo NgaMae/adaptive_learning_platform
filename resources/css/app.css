@@ -782,3 +782,13 @@ span.flatpickr-weekday,
     margin-top: 60px; /* adjust to your toolbar height */
     @apply rounded-lg border border-gray-300 bg-white shadow-theme-sm dark:border-gray-700 dark:bg-gray-dark dark:text-gray-200 dark:shadow-theme-lg;
 }
+
+.prose h1 {
+    @apply text-4xl font-bold;
+}
+.prose h2 {
+    @apply text-3xl font-semibold;
+}
+.prose h3 {
+    @apply text-2xl font-semibold;
+}

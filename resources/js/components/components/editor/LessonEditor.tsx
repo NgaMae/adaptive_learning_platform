@@ -1,8 +1,11 @@
 // resources/js/components/LessonEditor.tsx
-import React from 'react';
+import hljs from 'highlight.js';
+import React, { useEffect } from 'react';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // Quill's styles
+import 'react-quill/dist/quill.snow.css';
 
+import 'highlight.js/styles/github.css';
+import 'quill/dist/quill.snow.css';
 interface LessonEditorProps {
     data: any;
     setData: (key: string, data: any) => void;
@@ -12,6 +15,9 @@ interface LessonEditorProps {
 }
 
 const LessonEditor: React.FC<LessonEditorProps> = ({ initialContent, onSave, data, setData, processing }) => {
+    useEffect(() => {
+        hljs.highlightAll();
+    }, [data.content]);
     const handleSave = () => {
         onSave();
     };
@@ -44,7 +50,7 @@ const LessonEditor: React.FC<LessonEditorProps> = ({ initialContent, onSave, dat
                 placeholder="Start writing your lesson content here..."
                 value={data.content}
                 onChange={(value) => setData('content', value)}
-                className="bg-white"
+                className="bg-white placeholder:text-white"
             />
             <button onClick={handleSave} disabled={processing} className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
                 {processing ? 'Saving...' : 'Save Lesson'}

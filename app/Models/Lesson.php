@@ -27,8 +27,8 @@ class Lesson extends Model
     /**
      * A lesson has many quizzes.
      */
-    public function quiz()
+    public function quizzes()
     {
-        return $this->belongsTo(Quiz::class);
+        return $this->hasMany(Quiz::class);
     }
 }

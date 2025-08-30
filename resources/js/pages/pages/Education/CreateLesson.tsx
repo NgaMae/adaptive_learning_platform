@@ -12,8 +12,7 @@ interface CreateLessonProps {
     [key: string]: any;
 }
 export default function CreateLessson() {
-    const { lesson } = usePage<CreateLessonProps>().props;
-    console.log(lesson);
+    const { lesson, previousUrl } = usePage<CreateLessonProps>().props;
     const { data, setData, post, processing, errors } = useForm({
         content: lesson?.content || '',
     });
@@ -48,7 +47,7 @@ export default function CreateLessson() {
                 </form> */}
                 <div className="fixed z-0 mx-auto my-auto h-8 w-full bg-white dark:bg-gray-900">
                     <Link
-                        href="/"
+                        href={previousUrl}
                         className="inline-flex items-center align-middle text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                     >
                         <ChevronLeftIcon className="size-5" />
