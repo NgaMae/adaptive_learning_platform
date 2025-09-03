@@ -2,9 +2,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router';
 
 // Assume these icons are imported from an icon library
-import { FolderIcon, ListIcon, PieChartIcon, TableIcon } from 'lucide-react';
+import { FolderIcon } from 'lucide-react';
 import { useSidebar } from '../../context/SidebarContext';
-import { BoxCubeIcon, CalenderIcon, ChevronDownIcon, GridIcon, HorizontaLDots, PageIcon, PlugInIcon } from '../../icons';
+import { ChevronDownIcon, GridIcon, HorizontaLDots } from '../../icons';
 
 type NavItem = {
     name: string;
@@ -17,51 +17,51 @@ const navItems: NavItem[] = [
     {
         icon: <GridIcon />,
         name: 'Dashboard',
-        path: '/',
+        path: '/tutor/',
     },
     {
         icon: <FolderIcon />,
         name: 'Education',
         subItems: [
-            { name: 'Courses', path: '/courses' },
-            { name: 'Lessons', path: '/lessons' },
-            { name: 'Quizzes', path: '/quizzes' },
+            { name: 'Courses', path: '/tutor/courses' },
+            { name: 'Lessons', path: '/tutor/lessons' },
+            { name: 'Quizzes', path: '/tutor/quizzes' },
         ],
     },
     // {
     //     icon: <GridIcon />,
     //     name: 'Dashboard',
-    //     subItems: [{ name: 'Ecommerce', path: '/', pro: true }],
+    //     subItems: [{ name: 'Ecommerce', path: '/tutor/', pro: true }],
     // },
 
     // {
     //     icon: <UserCircleIcon />,
     //     name: 'User Profile',
-    //     path: '/profile',
+    //     path: '/tutor/profile',
     // },
-    {
-        name: 'Forms',
-        icon: <ListIcon />,
-        subItems: [{ name: 'Form Elements', path: '/form-elements', pro: false }],
-    },
-    {
-        name: 'Tables',
-        icon: <TableIcon />,
-        subItems: [{ name: 'Basic Tables', path: '/basic-tables', pro: false }],
-    },
-    {
-        name: 'Pages',
-        icon: <PageIcon />,
-        subItems: [
-            { name: 'Blank Page', path: '/blank', pro: false },
-            { name: '404 Error', path: '/error-404', pro: false },
-        ],
-    },
-    {
-        icon: <CalenderIcon />,
-        name: 'Calendar',
-        path: '/calendar',
-    },
+    // {
+    //     name: 'Forms',
+    //     icon: <ListIcon />,
+    //     subItems: [{ name: 'Form Elements', path: '/tutor/form-elements', pro: false }],
+    // },
+    // {
+    //     name: 'Tables',
+    //     icon: <TableIcon />,
+    //     subItems: [{ name: 'Basic Tables', path: '/tutor/basic-tables', pro: false }],
+    // },
+    // {
+    //     name: 'Pages',
+    //     icon: <PageIcon />,
+    //     subItems: [
+    //         { name: 'Blank Page', path: '/tutor/blank', pro: false },
+    //         { name: '404 Error', path: '/tutor/error-404', pro: false },
+    //     ],
+    // },
+    // {
+    //     icon: <CalenderIcon />,
+    //     name: 'Calendar',
+    //     path: '/tutor/calendar',
+    // },
     {
         name: 'Settings',
         icon: (
@@ -81,44 +81,46 @@ const navItems: NavItem[] = [
                 />
             </svg>
         ),
-        path: '/profile',
+        path: '/tutor/profile',
     },
 ];
 
 const othersItems: NavItem[] = [
-    {
-        icon: <PieChartIcon />,
-        name: 'Charts',
-        subItems: [
-            { name: 'Line Chart', path: '/line-chart', pro: false },
-            { name: 'Bar Chart', path: '/bar-chart', pro: false },
-        ],
-    },
-    {
-        icon: <BoxCubeIcon />,
-        name: 'UI Elements',
-        subItems: [
-            { name: 'Alerts', path: '/alerts', pro: false },
-            { name: 'Avatar', path: '/avatars', pro: false },
-            { name: 'Badge', path: '/badge', pro: false },
-            { name: 'Buttons', path: '/buttons', pro: false },
-            { name: 'Images', path: '/images', pro: false },
-            { name: 'Videos', path: '/videos', pro: false },
-        ],
-    },
-    {
-        icon: <PlugInIcon />,
-        name: 'Authentication',
-        subItems: [
-            { name: 'Sign In', path: '/signin', pro: false },
-            { name: 'Sign Up', path: '/signup', pro: false },
-        ],
-    },
+    // {
+    //     icon: <PieChartIcon />,
+    //     name: 'Charts',
+    //     subItems: [
+    //         { name: 'Line Chart', path: '/tutor/line-chart', pro: false },
+    //         { name: 'Bar Chart', path: '/tutor/bar-chart', pro: false },
+    //     ],
+    // },
+    // {
+    //     icon: <BoxCubeIcon />,
+    //     name: 'UI Elements',
+    //     subItems: [
+    //         { name: 'Alerts', path: '/tutor/alerts', pro: false },
+    //         { name: 'Avatar', path: '/tutor/avatars', pro: false },
+    //         { name: 'Badge', path: '/tutor/badge', pro: false },
+    //         { name: 'Buttons', path: '/tutor/buttons', pro: false },
+    //         { name: 'Images', path: '/tutor/images', pro: false },
+    //         { name: 'Videos', path: '/tutor/videos', pro: false },
+    //     ],
+    // },
+    // {
+    //     icon: <PlugInIcon />,
+    //     name: 'Authentication',
+    //     subItems: [
+    //         { name: 'Sign In', path: '/tutor/signin', pro: false },
+    //         { name: 'Sign Up', path: '/tutor/signup', pro: false },
+    //     ],
+    // },
 ];
 
 const AppSidebar: React.FC = () => {
     const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
     const location = useLocation();
+
+    console.log('Current Path:', location.pathname);
 
     const [openSubmenu, setOpenSubmenu] = useState<{
         type: 'main' | 'others';

@@ -39,6 +39,9 @@ const Quizzes = () => {
     };
     const handleSave: FormEventHandler = (e) => {
         e.preventDefault();
+        if (!processing) {
+            closeModal();
+        }
         post(route('lessons.generate-quizzes', { lesson: data.lesson_id }));
     };
     const handleQuizGenerate = (lessonId: number) => {

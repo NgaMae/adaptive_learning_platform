@@ -8,6 +8,7 @@ use App\Http\Controllers\LessonController;
 
 Route::middleware('auth')->group(function () {
     Route::post('courses', [CourseController::class, 'store'])->name('course.create');
+    Route::post('courses/{course}', [CourseController::class, 'destroy'])->name('course.destroy');
     Route::post('lessons/', [LessonController::class, 'store'])->name('lesson.create');
 
 

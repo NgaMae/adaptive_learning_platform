@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 // import 'react-quill/dist/quill.snow.css';
 
+import { Link } from '@inertiajs/react';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 import 'quill/dist/quill.snow.css';
@@ -146,9 +147,13 @@ export default function LearnerCoursePage({ course, currentLessonId }: Props) {
                         ☰
                     </button>
                     <div className="hidden text-sm text-gray-500 sm:block dark:text-gray-400">
-                        <span className="cursor-pointer hover:underline">Home</span>
+                        <Link href={route('learner.home')}>
+                            <span className="cursor-pointer hover:underline">Home</span>
+                        </Link>
                         <span className="mx-2">/</span>
-                        <span className="cursor-pointer hover:underline">Courses</span>
+                        <Link href={route('learner.home')}>
+                            <span className="cursor-pointer hover:underline">Courses</span>
+                        </Link>
                         <span className="mx-2">/</span>
                         <span className="font-semibold text-gray-800 dark:text-gray-200">{course?.title}</span>
                     </div>
@@ -171,7 +176,7 @@ export default function LearnerCoursePage({ course, currentLessonId }: Props) {
                                 : 'border-gray-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800',
                         )}
                     >
-                        🔖 {bookmark === activeLesson?.id ? 'Bookmarked' : 'Bookmark'}
+                        {bookmark === activeLesson?.id ? 'Bookmarked' : 'Bookmark'}
                     </button>
                 </div>
             </div>
@@ -220,7 +225,7 @@ export default function LearnerCoursePage({ course, currentLessonId }: Props) {
                                                             {l.title}
                                                         </span>
                                                         <span className="shrink-0 text-xs text-gray-500">
-                                                            {done ? '✅' : l.quizCount ? `📝 ${l.quizCount}` : ''}
+                                                            {done ? 'completed' : l.quizCount ? `📝 ${l.quizCount}` : ''}
                                                         </span>
                                                     </div>
                                                 </button>
@@ -240,7 +245,7 @@ export default function LearnerCoursePage({ course, currentLessonId }: Props) {
                         <span>Lesson {activeLesson?.order}</span>
                         {activeLesson?.durationMinutes ? <span>• {activeLesson.durationMinutes} min</span> : null}
                         {completedLessons.includes(activeLesson?.id) ? (
-                            <span className="inline-flex items-center gap-1 text-emerald-600">✅ Completed</span>
+                            <span className="inline-flex items-center gap-1 text-emerald-600">Completed</span>
                         ) : null}
                     </div>
 

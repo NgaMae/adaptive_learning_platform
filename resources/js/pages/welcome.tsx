@@ -1,3 +1,4 @@
+import { usePage } from '@inertiajs/react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router';
 import { ScrollToTop } from '../components/components/common/ScrollToTop';
 import AppLayout from '../layouts/layout/AppLayout';
@@ -23,6 +24,7 @@ import Videos from './pages/UiElements/Videos';
 import UserProfiles from './pages/UserProfiles';
 
 export default function App() {
+    const { auth } = (usePage().props as any) || {};
     return (
         <>
             <Router>
@@ -30,40 +32,40 @@ export default function App() {
                 <Routes>
                     {/* Dashboard Layout */}
                     <Route element={<AppLayout />}>
-                        <Route index path="/" element={<Home />} />
+                        <Route index path="tutor/" element={<Home />} />
 
                         {/* Education Pages */}
-                        <Route path="/courses" element={<Courses />} />
-                        <Route path="/lessons" element={<Lessons />} />
-                        <Route path="/quizzes" element={<Quizzes />} />
+                        <Route path="tutor/courses" element={<Courses />} />
+                        <Route path="tutor/lessons" element={<Lessons />} />
+                        <Route path="tutor/quizzes" element={<Quizzes />} />
 
                         {/* Others Page */}
-                        <Route path="/profile" element={<UserProfiles />} />
-                        <Route path="/calendar" element={<Calendar />} />
-                        <Route path="/blank" element={<Blank />} />
+                        <Route path="tutor/profile" element={<UserProfiles auth={auth} />} />
+                        <Route path="tutor/calendar" element={<Calendar />} />
+                        <Route path="tutor/blank" element={<Blank />} />
 
                         {/* Forms */}
-                        <Route path="/form-elements" element={<FormElements />} />
+                        <Route path="tutor/form-elements" element={<FormElements />} />
 
                         {/* Tables */}
-                        <Route path="/basic-tables" element={<BasicTables />} />
+                        <Route path="tutor/basic-tables" element={<BasicTables />} />
 
                         {/* Ui Elements */}
-                        <Route path="/alerts" element={<Alerts />} />
-                        <Route path="/avatars" element={<Avatars />} />
-                        <Route path="/badge" element={<Badges />} />
-                        <Route path="/buttons" element={<Buttons />} />
-                        <Route path="/images" element={<Images />} />
-                        <Route path="/videos" element={<Videos />} />
+                        <Route path="tutor/alerts" element={<Alerts />} />
+                        <Route path="tutor/avatars" element={<Avatars />} />
+                        <Route path="tutor/badge" element={<Badges />} />
+                        <Route path="tutor/buttons" element={<Buttons />} />
+                        <Route path="tutor/images" element={<Images />} />
+                        <Route path="tutor/videos" element={<Videos />} />
 
                         {/* Charts */}
-                        <Route path="/line-chart" element={<LineChart />} />
-                        <Route path="/bar-chart" element={<BarChart />} />
+                        <Route path="tutor/line-chart" element={<LineChart />} />
+                        <Route path="tutor/bar-chart" element={<BarChart />} />
                     </Route>
 
                     {/* Auth Layout */}
-                    <Route path="/signin" element={<SignIn />} />
-                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="tutor/signin" element={<SignIn />} />
+                    <Route path="tutor/signup" element={<SignUp />} />
 
                     {/* Fallback Route */}
                     <Route path="*" element={<NotFound />} />

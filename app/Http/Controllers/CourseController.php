@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CourseCreateRequest;
 use App\Models\Course;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\Model;
+use App\Http\Requests\CourseCreateRequest;
 
 class CourseController extends Controller
 {
@@ -33,7 +34,7 @@ class CourseController extends Controller
         Model::unguard();
         $course = Course::create($request->validated());
 
-        return redirect('/courses')->with('status', 'Course created successfully!');
+        return redirect('tutor/courses')->with('success', 'Course created successfully!');
     }
 
     /**
@@ -65,6 +66,17 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        try {
+            // If your course has related lessons/quizzes, you might need to handle them
+            // Example: $course->lessons()->delete();
+            $course->delete();
+
+            return redirect('/tutor/courses')
+                ->with('success', 'Course deleted successfully!');
+        } catch (\Exception $e) {
+            Log::error('Failed to delete course', ['error' => $e->getMessage()]);
+
+            return back()->with('error', 'Failed to delete the course. Please try again.');
+        }
     }
 }

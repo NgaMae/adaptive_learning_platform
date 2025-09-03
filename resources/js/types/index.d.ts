@@ -29,9 +29,14 @@ export interface SharedData {
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
     courses?: Course[];
+    flash?: Flash;
     [key: string]: unknown;
 }
 
+export interface Flash {
+    success?: string;
+    error?: string;
+}
 export interface User {
     id: number;
     name: string;

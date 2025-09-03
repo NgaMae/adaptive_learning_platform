@@ -7,9 +7,12 @@ import { Modal } from '@/components/components/ui/modal';
 import InputError from '@/components/input-error';
 import { useModal } from '@/hooks/hooks/useModal';
 import { SharedData } from '@/types';
-import { useForm, usePage } from '@inertiajs/react';
+import { router, useForm, usePage } from '@inertiajs/react';
 import { PlusIcon } from 'lucide-react';
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler, useEffect, useState } from 'react';
+import { Link } from 'react-router';
+import { toast } from 'sonner';
+import Swal from 'sweetalert2';
 import PageBreadcrumb from '../../../components/components/common/PageBreadCrumb';
 
 interface CoursesProps {
@@ -22,8 +25,19 @@ interface CourseForm {
     created_by: number; // 1: beginner, 2: intermediate, 3: advanced
 }
 export default function Courses() {
-    const { auth, courses } = usePage<SharedData>().props;
+    const { auth, courses, flash } = usePage<SharedData>().props;
     const [description, setDescription] = useState('');
+
+    console.log(usePage());
+
+    useEffect(() => {
+        if (flash?.success) {
+            toast.success(flash.success);
+        }
+        if (flash?.error) {
+            toast.error(flash.error);
+        }
+    }, [flash]);
 
     const { data, setData, errors, processing, post } = useForm<Required<CourseForm>>({
         title: '',
@@ -51,6 +65,19 @@ export default function Courses() {
         setData('difficulty', parseInt(value, 10));
     };
 
+    const handleDelete = (id: number): void => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'This will delete the course and related data permanently.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                router.post(route('course.destroy', id));
+            }
+        });
+    };
     return (
         <div>
             <PageBreadcrumb pageTitle="Courses" />
@@ -62,11 +89,21 @@ export default function Courses() {
                     >
                         <h3 className="mb-4 text-theme-xl font-semibold text-gray-800 sm:text-2xl dark:text-white/90">{course.title}</h3>
                         <p className="line-clamp-5 text-sm text-pretty text-gray-500 sm:text-base dark:text-gray-400">{course.description}</p>
+                        <div className="mt-4 flex items-center justify-between">
+                            <Link to={'/tutor/lessons'}>
+                                <Button size="sm" variant="outline">
+                                    Add Lessons
+                                </Button>
+                            </Link>
+                            <Button size="sm" variant="outline" onClick={() => handleDelete(course.id)}>
+                                Delete Course
+                            </Button>
+                        </div>
                     </div>
                 ))}
 
                 <div
-                    className="px-auto flex min-h-50 cursor-pointer items-center justify-center rounded-2xl border border-gray-200 p-4 pr-5 select-none hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800"
+                    className="px-auto flex max-h-50 cursor-pointer items-center justify-center rounded-2xl border border-gray-200 p-4 pr-5 select-none hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800"
                     onClick={openModal}
                 >
                     <PlusIcon className="size-8" />

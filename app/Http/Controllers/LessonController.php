@@ -33,7 +33,6 @@ class LessonController extends Controller
             'lesson_order' => 'required|integer|min:1',
             'content' => 'nullable|string', // Assuming content can be HTML or Markdown
         ]);
-        Log::info('Creating lesson with data: ', $validated);
 
         $lesson = Lesson::create([
             'course_id' => $validated['course_id'],
@@ -70,7 +69,7 @@ class LessonController extends Controller
         $lesson->update([
             'content' => $validated['content'], // store HTML
         ]);
-        return redirect('/lessons/')->with('status', 'Lesson updated successfully!');
+        return redirect('tutor/lessons/')->with('status', 'Lesson updated successfully!');
     }
 
     /**

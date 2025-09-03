@@ -24,7 +24,7 @@ export default function LandingPage() {
                 <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
                     <h1 className="text-xl font-bold">Adaptive Learning</h1>
                     <button onClick={() => setDarkMode(!darkMode)} className="rounded-lg bg-white/20 px-3 py-2 transition hover:bg-white/30">
-                        {darkMode ? '☀️ Light' : '🌙 Dark'}
+                        {darkMode ? 'Light' : 'Dark'}
                     </button>
                 </div>
 
@@ -41,13 +41,13 @@ export default function LandingPage() {
                     </p>
                     <div className="flex flex-col justify-center gap-4 sm:flex-row">
                         <Link
-                            href="/signup"
+                            href="/sign-up"
                             className="rounded-xl bg-white px-6 py-3 font-semibold text-blue-700 shadow transition hover:bg-gray-100"
                         >
                             Get Started
                         </Link>
                         <Link
-                            href="/signin"
+                            href="/sign-in"
                             className="rounded-xl border border-white px-6 py-3 font-semibold text-white transition hover:bg-white/20"
                         >
                             Login
@@ -104,6 +104,105 @@ export default function LandingPage() {
             </section>
 
             {/* Preview Section */}
+            <section className="bg-gray-50 py-16 transition-colors duration-300 dark:bg-gray-900">
+                <div className="mx-auto max-w-7xl px-6 text-center">
+                    <motion.h2
+                        className="mb-6 text-3xl font-bold text-gray-800 dark:text-gray-100"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        See How It Works
+                    </motion.h2>
+                    <motion.p
+                        className="mx-auto mb-8 max-w-2xl text-gray-600 dark:text-gray-300"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2, duration: 0.6 }}
+                    >
+                        Take a quick look at our interactive dashboard where you can explore courses, lessons, and quizzes designed just for you.
+                    </motion.p>
+                    <motion.div
+                        className="overflow-hidden rounded-2xl shadow-lg"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <img src="/images/dashboard-preview.png" alt="Dashboard Preview" className="w-full" />
+                    </motion.div>
+                </div>
+            </section>
+
+            <section className="bg-white py-16 transition-colors duration-300 dark:bg-gray-800">
+                <div className="mx-auto max-w-7xl px-6">
+                    <motion.h2
+                        className="text-center text-3xl font-bold text-gray-800 dark:text-gray-100"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        For Teachers
+                    </motion.h2>
+
+                    <motion.div
+                        className="mx-auto max-w-7xl px-6 py-8 text-center"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <div className="flex flex-col justify-center gap-4 sm:flex-row">
+                            <Link
+                                href="/tutor-sign-up"
+                                className="rounded-xl border bg-blue-600 px-6 py-3 font-semibold text-white shadow transition hover:bg-white hover:text-blue-700"
+                            >
+                                Sign Up
+                            </Link>
+                            <Link
+                                href="/tutor-sign-in"
+                                className="rounded-xl border border-gray-500 px-6 py-3 font-semibold text-blue-700 transition hover:bg-blue-600 hover:text-white dark:text-white"
+                            >
+                                Sign In
+                            </Link>
+                        </div>
+                    </motion.div>
+                    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                        {[
+                            {
+                                title: 'Learn at Your Own Pace',
+                                desc: 'Choose from beginner to advanced programming lessons.',
+                            },
+                            {
+                                title: 'AI-Generated Quizzes',
+                                desc: 'Test your knowledge with automatically generated quizzes.',
+                            },
+                            {
+                                title: 'Track Your Progress',
+                                desc: 'See your growth with progress tracking and reports.',
+                            },
+                            {
+                                title: 'Adaptive Learning Paths',
+                                desc: 'Get personalized course suggestions based on performance.',
+                            },
+                        ].map((f, i) => (
+                            <motion.div
+                                key={i}
+                                className="rounded-2xl bg-gray-50 p-6 shadow transition hover:shadow-lg dark:bg-gray-700"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.2, duration: 0.5 }}
+                            >
+                                <h3 className="mb-2 text-xl font-semibold text-gray-800 dark:text-gray-100">{f.title}</h3>
+                                <p className="text-gray-600 dark:text-gray-300">{f.desc}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
             <section className="bg-gray-50 py-16 transition-colors duration-300 dark:bg-gray-900">
                 <div className="mx-auto max-w-7xl px-6 text-center">
                     <motion.h2

@@ -21,7 +21,7 @@ class QuizController extends Controller
             'messages' => [
                 [
                     'role' => 'system',
-                    'content' => 'You are a quiz generator. Generate JSON output only.'
+                    'content' => 'You are a quiz generator. Output ONLY raw JSON without any explanations or Markdown fences.'
                 ],
                 [
                     'role' => 'user',
@@ -34,7 +34,15 @@ class QuizController extends Controller
         // Extract JSON string from response
         $content = $response->choices[0]->message->content;
 
-        // Try to decode JSON
+        // Clean up response: remove markdown fences (```json ... ```)
+        $content = preg_replace('/^```(?:json)?|```$/m', '', trim($content));
+
+        // Extract only JSON array if there's extra text
+        if (preg_match('/\[[\s\S]*\]/', $content, $matches)) {
+            $content = $matches[0];
+        }
+
+        // Decode JSON
         $json = json_decode($content, true);
 
         if (!is_array($json)) {
@@ -53,7 +61,7 @@ class QuizController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Quizzes generated!');
+        return redirect('tutor/quizzes')->with('success', 'Quizzes generated!');
     }
 
     /**

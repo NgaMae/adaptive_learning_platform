@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { Link } from '@inertiajs/react';
-
 import { ThemeToggleButton } from '../../components/components/common/ThemeToggleButton';
-import NotificationDropdown from '../../components/components/header/NotificationDropdown';
 import UserDropdown from '../../components/components/header/UserDropdown';
 import { useSidebar } from '../../context/SidebarContext';
 
@@ -72,11 +69,6 @@ const AppHeader: React.FC = () => {
                         {/* Cross Icon */}
                     </button>
 
-                    <Link to="/" className="lg:hidden">
-                        <img className="dark:hidden" src="./images/logo/logo.svg" alt="Logo" />
-                        <img className="hidden dark:block" src="./images/logo/logo-dark.svg" alt="Logo" />
-                    </Link>
-
                     <button
                         onClick={toggleApplicationMenu}
                         className="z-99999 flex h-10 w-10 items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100 lg:hidden dark:text-gray-400 dark:hover:bg-gray-800"
@@ -91,7 +83,7 @@ const AppHeader: React.FC = () => {
                         </svg>
                     </button>
 
-                    <div className="hidden lg:block">
+                    {/* <div className="hidden lg:block">
                         <form>
                             <div className="relative">
                                 <span className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2">
@@ -124,7 +116,7 @@ const AppHeader: React.FC = () => {
                                 </button>
                             </div>
                         </form>
-                    </div>
+                    </div> */}
                 </div>
                 <div
                     className={`${
@@ -135,7 +127,7 @@ const AppHeader: React.FC = () => {
                         {/* <!-- Dark Mode Toggler --> */}
                         <ThemeToggleButton />
                         {/* <!-- Dark Mode Toggler --> */}
-                        <NotificationDropdown />
+                        {/* <NotificationDropdown /> */}
                         {/* <!-- Notification Menu Area --> */}
                     </div>
                     {/* <!-- User Area --> */}
